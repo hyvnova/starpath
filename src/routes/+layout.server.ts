@@ -1,32 +1,34 @@
-import fs from 'fs/promises';
-import path from 'path';
 import { error } from '@sveltejs/kit';
-import last_chapter_id from '$lib/stores/last_chapter_id';
-import { get } from 'svelte/store';
 
 export async function load() {
-    const chapters_dir = path.join(process.cwd(), 'static', 'chapters');
+    // GitHub API endpoint for the chapters folder in the repository
+    const apiUrl = "https://api.github.com/repos/hyvnova/starpath/contents/chapters";
 
-    // Get title of each chapter which it's the first line of the file
-    // as in ## Chapter Name
+    // Fetch the list of files from the repository
+    const res = await fetch(apiUrl);
+    if (!res.ok) {
+        throw error(res.status, `Failed to fetch chapters:\n${res.text}`);
+    }
 
-    const chapters = await fs.readdir(chapters_dir);
+    // The response returns an array of file objects
+    const files = await res.json();
 
-    let last_ch: number;
+    // Filter to only include markdown files (e.g., those ending with .md)
+    const markdownFiles = files.filter((file: any) => file.name.endsWith('.md'));
 
-    const titles = await Promise.all(chapters.map(async (chapter) => {
-        // Create file path
-        const filePath = path.join(chapters_dir, chapter);
-
-        // Read file
-        const content = await fs.readFile(filePath, 'utf8');
-
-        // Extract title
-        const title = content.split('\n')[0].replace('## ', '');
-
-
-        return title;
-    }));
+    // For each markdown file, fetch its content and extract the title from the first line
+    const titles = await Promise.all(
+        markdownFiles.map(async (file: any) => {
+            const fileRes = await fetch(file.download_url);
+            if (!fileRes.ok) {
+                throw error(fileRes.status, `Failed to fetch file ${file.name}`);
+            }
+            const content = await fileRes.text();
+            const firstLine = content.split('\n')[0];
+            // Remove "## " prefix from the title (if it exists)
+            return firstLine.replace(/^##\s*/, '');
+        })
+    );
 
     return { titles };
 }
