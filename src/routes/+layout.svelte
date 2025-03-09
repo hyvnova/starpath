@@ -1,6 +1,8 @@
 <script lang="ts">
+ 	 import user_config from '$lib/stores/user_config';
 	import '../app.css';
 	import { cubicOut } from 'svelte/easing';
+
 
 	let { children } = $props();
 
@@ -28,6 +30,13 @@
 		max-w-7xl mx-auto p-4 m-2
 		rounded-lg shadow-lg
 	"
+
+	style="
+		font-family:{$user_config.font} !important; 
+		font-size:{$user_config.font_size}px !important;
+		background:{$user_config.background};
+		color:{$user_config.color};
+		"
 >
 	{@render children()}
 </main>

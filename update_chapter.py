@@ -7,6 +7,7 @@ Esto es necesario porque si no recuerda, github es la base de datos.
 """
 
 import os
+from shutil import copy as file_copy
 
 SOURCE_PATH = r"C:\Users\Hyvnt\T\Obsidian\Starpath\es"
 TARGET_PATH = r"C:\Users\Hyvnt\T\Svelte\starpath\chapters"
@@ -22,14 +23,8 @@ for filename in os.listdir(SOURCE_PATH):
 
         print(added_files_log[-1])
 
-        # copy file
-        # why use command line? because I feel like it
-        with open(f"{TARGET_PATH}\\{filename}", "w", encoding="utf-8") as f:
-            source_file = open(f"{SOURCE_PATH}\\{filename}", "r", encoding="utf-8")
-            f.write(source_file.read())
-            source_file.close()
-
-
+        file_copy(f"{SOURCE_PATH}\\{filename}", f"{TARGET_PATH}\\{filename}")
+        
 os.system("git add .")
 os.system(f"git commit -m \"Added: {', '.join(added_files_log)}\"")
 os.system("git push")

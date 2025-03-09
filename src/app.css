@@ -1,9 +1,46 @@
 @import 'tailwindcss';
 
+/* Minimalist, thin scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    padding: 4px;
+    margin: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+    margin: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
 body {
     background-color: black;
 }
 
 a {
     color: white;
+}
+
+
+.rotate {
+    animation: rotate 15s linear infinite;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    30% {
+        transform: rotate(180deg);
+    }
+
+    60% {
+        transform: rotate(0deg);
+    }
 }
