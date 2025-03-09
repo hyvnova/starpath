@@ -15,18 +15,18 @@ files_in_target = os.listdir(TARGET_PATH)
 
 added_files_log = []
 
-for file in os.listdir(SOURCE_PATH):
-    if file not in files_in_target:
+for filename in os.listdir(SOURCE_PATH):
+    if filename not in files_in_target:
 
-        added_files_log.append(f"[ + ] {file}")
+        added_files_log.append(f"[ + ] {filename}")
 
         print(added_files_log[-1])
 
         # copy file
         # why use command line? because I feel like it
-        with open(f"{TARGET_PATH}\\{file}", "w", encoding="utf-8") as file:
-            source_file = open(f"{SOURCE_PATH}\\{file}", "r", encoding="utf-8")
-            file.write(source_file.read())
+        with open(f"{TARGET_PATH}\\{filename}", "w", encoding="utf-8") as f:
+            source_file = open(f"{SOURCE_PATH}\\{filename}", "r", encoding="utf-8")
+            f.write(source_file.read())
             source_file.close()
 
 
