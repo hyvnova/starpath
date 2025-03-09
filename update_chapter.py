@@ -24,7 +24,10 @@ for file in os.listdir(SOURCE_PATH):
 
         # copy file
         # why use command line? because I feel like it
-        os.system(f"cp \"{SOURCE_PATH}\{file}\" \"{TARGET_PATH}\{file}\"")
+        with open(f"{TARGET_PATH}\{file}", "w", encoding="utf-8") as file:
+            source_file = open(f"{SOURCE_PATH}\{file}", "r", encoding="utf-8")
+            file.write(source_file.read())
+            source_file.close()
 
 
 os.system("git add .")
