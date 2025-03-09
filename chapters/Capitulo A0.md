@@ -1,4 +1,4 @@
-# El asalto
+## El asalto
 
 Nadia y yo vestíamos trajes negros tácticos, unas vestiduras de combate bastante profesionales que se enfocaban en la protección de las partes vitales, pero sobre todo en la movilidad y agilidad.
 

@@ -12,7 +12,7 @@
 
 <SettingsLayout>
   <nav class="absolute top-8 right-8 m-0 p-0">
-    <a href="/" class="text-gray-500 hover:white" title="Settings">
+    <a href="/" class="text-gray-300 hover:white" title="Home">
       <Fa icon={faHome} class="text-2xl" />
     </a>
   </nav>

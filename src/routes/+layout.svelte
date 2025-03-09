@@ -23,11 +23,11 @@
 
 <!-- Apply the custom swipe transition -->
 <main transition:swipe
-	class="bg-black min-h-screen
+	class="bg-black min-h-screen 
 		flex flex-col items-center justify-center
 		text-white font-mono text-lg
 
-		max-w-7xl mx-auto p-4 m-2
+		max-w-7xl mx-auto 
 		rounded-lg shadow-lg
 	"
 

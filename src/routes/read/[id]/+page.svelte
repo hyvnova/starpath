@@ -1,10 +1,11 @@
 <script lang="ts">
+  import ConfigNav from "$lib/components/ConfigNav.svelte";
   import PageControl from "$lib/components/PageControl.svelte";
-  import { faCog } from "@fortawesome/free-solid-svg-icons";
-  import Fa from "svelte-fa";
 
   export let data;
 </script>
+
+<ConfigNav home={true} />
 
 <div
   class="flex flex-col justify-center text-balance
@@ -12,17 +13,7 @@
         max-w-7xl mx-auto
         "
 >
-  <nav>
-    <a
-      href="/settings"
-      class="rotate text-gray-400 hover:text-gray-100"
-      title="Settings"
-    >
-      <Fa icon={faCog} class="text-2xl" />
-    </a>
-
-    <PageControl id={data.id} />
-  </nav>
+  <PageControl id={data.id} />
 
   {@html data.content}
 
@@ -30,7 +21,7 @@
 </div>
 
 <!--
-    Add styles so that markdown content is displayed properly
+    Markdown
 -->
 <style>
   :global(html) {
@@ -68,15 +59,6 @@
     margin: 0.8em 0;
   }
 
-  /* Enlaces */
-  :global(a) {
-    color: #0366d6;
-    text-decoration: none;
-  }
-  :global(a:hover) {
-    text-decoration: underline;
-  }
-
   /* Listas */
   :global(ul),
   :global(ol) {
@@ -94,22 +76,6 @@
     background-color: #f6f8fa;
     border-left: 4px solid #dfe2e5;
     color: #6a737d;
-  }
-
-  /* Código en línea */
-  :global(code) {
-    background-color: #f6f8fa;
-    padding: 0.2em 0.4em;
-    border-radius: 3px;
-    font-family: monospace;
-  }
-
-  /* Bloques de código */
-  :global(pre) {
-    background-color: #f6f8fa;
-    padding: 1em;
-    overflow: auto;
-    border-radius: 3px;
   }
 
   /* Separadores horizontales */

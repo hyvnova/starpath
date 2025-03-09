@@ -1,23 +1,12 @@
 <script lang="ts">
-  import { faCog } from '@fortawesome/free-solid-svg-icons';
-  import Fa from 'svelte-fa';
+  import ConfigNav from "$lib/components/ConfigNav.svelte";
+  import { faCog } from "@fortawesome/free-solid-svg-icons";
+  import Fa from "svelte-fa";
 
-
-    export let data;
+  export let data;
 </script>
 
-<nav
-  class="absolute top-8 right-8"
->
-    <a
-      href="/settings"
-      class="rotate text-gray-500 hover:white"
-      title="Settings"
-    >
-      <Fa icon={faCog} class="text-2xl" />
-    </a>
-
-</nav>
+<ConfigNav />
 
 <section>
   <h1 class="text-4xl font-bold text-center">Starpath</h1>
@@ -29,15 +18,16 @@
         "
   >
     {#each data.titles as title, i}
-    <li class="text-md text-center my-1.5
-        border-white 
-        hover:border-b-2      
+      <li
+        class="text-md text-center my-1.5 p-0.5
+        border-white
+        hover:border-b-2
         "
-    >
-      <a href={`read/${i}`} class="text-white"> <span class="text-gray-300">{i}</span> - <i>{title}</i></a>
-    </li>
+      >
+        <a href={`read/${i}`} class="text-white">
+          <span class="text-gray-300">{i}</span> - <i>{title}</i></a
+        >
+      </li>
     {/each}
-
-</ol>
-  
+  </ol>
 </section>
