@@ -17,15 +17,15 @@
             p-4 mt-8
         "
   >
-    {#each data.titles as title, i}
+    {#each data.id_and_titles as [id, title]}
       <li
         class="text-md text-center my-1.5 p-0.5
         border-white
         hover:border-b-2
         "
       >
-        <a href={`read/${i}`} class="text-white">
-          <span class="text-gray-300">{i}</span> - <i>{title}</i></a
+        <a href={`read/${id}`} class="text-white">
+          <span class="text-gray-300">{id}</span> - <i>{title}</i></a
         >
       </li>
     {/each}

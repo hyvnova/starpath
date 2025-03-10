@@ -17,8 +17,10 @@ export async function load() {
     const markdownFiles = files.filter((file: any) => file.name.endsWith('.md'));
 
     // For each markdown file, fetch its content and extract the title from the first line
-    const titles = await Promise.all(
+    const id_and_titles = await Promise.all(
         markdownFiles.map(async (file: any) => {
+            const id = file.name.split(" ").at(-1).replace(".md", "")
+
             const fileRes = await fetch(file.download_url);
             if (!fileRes.ok) {
                 throw error(fileRes.status, `Failed to fetch file ${file.name}`);
@@ -26,9 +28,9 @@ export async function load() {
             const content = await fileRes.text();
             const firstLine = content.split('\n')[0];
             // Remove "## " prefix from the title (if it exists)
-            return firstLine.replace(/^##\s*/, '');
+            return [id, firstLine.replace(/^##\s*/, '')];
         })
     );
 
-    return { titles };
+    return { id_and_titles };
 }

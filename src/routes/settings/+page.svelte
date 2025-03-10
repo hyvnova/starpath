@@ -1,13 +1,11 @@
 <script lang="ts">
+  import RecentColors from "$lib/components/RecentColors.svelte";
   import SettingSection from "$lib/components/SettingSection.svelte";
   import SettingsLayout from "$lib/components/SettingsLayout.svelte";
-  import user_config, { FONTS } from "$lib/stores/user_config";
+  import user_config, { default_value, FONTS } from "$lib/stores/user_config";
   import { faHome } from "@fortawesome/free-solid-svg-icons";
   import ColorPicker from "svelte-awesome-color-picker";
   import Fa from "svelte-fa";
-
-	
-
 </script>
 
 <SettingsLayout>
@@ -50,64 +48,103 @@
     </div>
 
     <!-- Background color -->
-    <div class="my-2 flex flex-col dark">
+    <div class="my-2 flex flex-col dark justify-center items-center">
       <label for="font-size" class="text-gray-300 m-1 font-bold text-center"
         >Color de fondo</label
       >
       <ColorPicker
         position="responsive"
-		textInputModes={['hex']}
-		isAlpha={false}
-		nullable={false}
-		isDialog={false}
-		bind:hex={$user_config.background}
-		
-		on:input={(event) => {
-			user_config.update(config => {
-				config.background = event.detail.hex as string;
-				config.background_history.push(event.detail.hex as string);
+        textInputModes={['hex']}
+        isAlpha={false}
+        nullable={false}
+        isDialog={false}
+        bind:hex={$user_config.background}
+        on:input={(event) => {
+          user_config.update((config) => {
+            config.background = event.detail.hex as string;
+            config.background_history.push(event.detail.hex as string);
 
-				return config;
-			})
-		}}
+            return config;
+          });
+        }}
+      />
+
+      <RecentColors
+        colors={$user_config.background_history}
+        set_color={(color: string) => {
+          user_config.update((config) => {
+            config.background = color;
+            return config;
+          })
+        }}
       />
     </div>
 
-
-	<!-- Text Color-->
-	<div class="my-2 flex flex-col dark">
+    <!-- Text Color-->
+    <div class="my-2 flex flex-col dark justify-center items-center">
       <label for="font-size" class="text-gray-300 m-1 font-bold text-center"
-        >Color de fondo</label
+        >Color del texto</label
       >
       <ColorPicker
         position="responsive"
-		textInputModes={['hex']}
-		isAlpha={false}
-		nullable={false}
-		isDialog={false}
-		
-		bind:hex={$user_config.color}
-		
-		on:input={(event) => {
-			user_config.update(config => {
-				config.color = event.detail.hex as string;
-				config.color_history.push(event.detail.hex as string);
+        textInputModes={["hex"]}
+        isAlpha={false}
+        nullable={false}
+        isDialog={false}
+        bind:hex={$user_config.color}
+        on:input={(event) => {
+          user_config.update((config) => {
+            config.color = event.detail.hex as string;
+            config.color_history.push(event.detail.hex as string);
 
-				return config;
-			})
-		}}
+            return config;
+          });
+        }}
+      />
+
+       <RecentColors
+        colors={$user_config.color_history}
+        set_color={(color: string) => {
+          user_config.update((config) => {
+            config.color = color;
+            return config;
+          })
+        }}
       />
     </div>
+    
 
-  </SettingSection>
+    <!-- Rsstore default values --> 
+    <div class="my-2 flex flex-col dark justify-center items-center mt-8">
+      <label for="font-size" class="text-gray-300 m-1 font-bold text-center"
+        >Restaurar valores por defecto</label
+      >
+
+      <button
+        class="border-2 border-gray-800 bg-black text-white font-bold
+          hover:bg-red-800
+          rounded-md p-2
+        "
+
+        on:click={() => {
+            user_config.set(default_value);
+        }}
+      >
+        Restaurar
+      </button>
+    </div>
+
+    </SettingSection>
+
+    
 </SettingsLayout>
 
-
 <style>
-	.dark {
-		--cp-bg-color: #222;
-		--cp-border-color: black;
-		--cp-text-color: white;
-		--cp-input-color: #444;
-		--cp-button-hover-color: #777;
-	}</style>
+  .dark {
+    --cp-bg-color: #222;
+    --cp-border-color: black;
+    --cp-text-color: white;
+    --cp-input-color: #444;
+    --cp-button-hover-color: #777;
+  }
+</style>
