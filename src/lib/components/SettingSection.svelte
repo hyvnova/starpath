@@ -5,7 +5,7 @@
 
 <section
 	class="container flex flex-col justify-center items-center
-			w-full p-2 mt-2
+			w-4xl p-2 mt-2
 			rounded-lg
 			bg-gray-900
 		"

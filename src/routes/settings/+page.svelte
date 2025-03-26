@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { goto } from "$app/navigation";
   import RecentColors from "$lib/components/RecentColors.svelte";
   import SettingSection from "$lib/components/SettingSection.svelte";
   import SettingsLayout from "$lib/components/SettingsLayout.svelte";
@@ -126,8 +127,11 @@
           rounded-md p-2
         "
 
-        on:click={() => {
-            user_config.set(default_value);
+        on:click={async () => {
+            // This fucking goofy shit it's necessesary because otherwise svelte won't update the fucking fucking stupid writable.
+           user_config.update(() => ({ ...default_value }));
+
+            await goto("/settings");
         }}
       >
         Restaurar
